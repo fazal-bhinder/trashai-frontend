@@ -1,5 +1,5 @@
 "use client";
-import { cn  } from "/Users/fazalsingh/Documents/cohart/Projects/TrashAI/frontend/src/lib/utlis.tsx";
+import { cn  } from "../../lib/utlis";
 import React, { ReactNode } from "react";
 
 interface AuroraBackgroundProps extends React.HTMLProps<HTMLDivElement> {
