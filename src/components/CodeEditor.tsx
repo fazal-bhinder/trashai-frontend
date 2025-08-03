@@ -2,18 +2,53 @@ import { useEffect, useState } from "react";
 import { WebContainer } from '@webcontainer/api';
 import Editor from '@monaco-editor/react';
 import { FileItem } from '../types';
-import { Eye, Code2, Play, Loader } from 'lucide-react'; 
+import { Eye, Code2, Play, Loader, Download } from 'lucide-react'; 
 import { motion } from 'framer-motion';
 
 interface CodeEditorProps {
   files: FileItem[];
   webContainer: WebContainer | undefined;
+  allFiles?: FileItem[];
 }
 
-export function CodeEditor({ files, webContainer }: CodeEditorProps) {
+export function CodeEditor({ files, webContainer, allFiles = [] }: CodeEditorProps) {
   const [mode, setMode] = useState<'code' | 'preview'>('code');
   const [url, setUrl] = useState<string>("");
   const [isServerStarting, setIsServerStarting] = useState(false);
+
+  const downloadAllFiles = () => {
+    // Create a text file with all code content
+    let content = "Generated Project Files\n";
+    content += `Generated on: ${new Date().toLocaleString()}\n`;
+    content += "=".repeat(50) + "\n\n";
+
+    // Recursive function to process all files
+    const processFiles = (fileItems: FileItem[], prefix: string = '') => {
+      fileItems.forEach(file => {
+        if (file.type === 'file' && file.content) {
+          const filePath = prefix + file.name;
+          content += `\n=== ${filePath} ===\n`;
+          content += file.content;
+          content += "\n\n" + "-".repeat(30) + "\n";
+        } else if (file.type === 'folder' && file.children) {
+          processFiles(file.children, prefix + file.name + '/');
+        }
+      });
+    };
+
+    processFiles(allFiles);
+
+    // Create and download the file
+    const blob = new Blob([content], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'project-files.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  };
 
   async function startServer() {
     if (!webContainer) {
@@ -168,7 +203,7 @@ export function CodeEditor({ files, webContainer }: CodeEditorProps) {
             />
           </div>
         ) : (
-          <Preview url={url} isLoading={isServerStarting} />
+          <Preview url={url} isLoading={isServerStarting} onDownload={downloadAllFiles} />
         )}
       </div>
     </div>
@@ -178,9 +213,10 @@ export function CodeEditor({ files, webContainer }: CodeEditorProps) {
 interface PreviewProps {
   url: string;
   isLoading: boolean;
+  onDownload: () => void;
 }
 
-export function Preview({ url, isLoading }: PreviewProps) {
+export function Preview({ url, isLoading, onDownload }: PreviewProps) {
   return (
     <div className="h-full w-full flex flex-col bg-white border border-gray-200">
       {/* Preview Header */}
@@ -195,10 +231,15 @@ export function Preview({ url, isLoading }: PreviewProps) {
             {url || 'localhost:3000'}
           </div>
         </div>
-        <div className="flex items-center gap-2 text-gray-500">
-          <Play className="w-4 h-4" />
-          <span className="text-sm">Live</span>
-        </div>
+        <motion.button
+          onClick={onDownload}
+          className="flex items-center gap-2 px-3 py-1 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition-all"
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          <Download className="w-4 h-4" />
+          <span className="text-sm">Download</span>
+        </motion.button>
       </div>
 
       {/* Preview Content */}

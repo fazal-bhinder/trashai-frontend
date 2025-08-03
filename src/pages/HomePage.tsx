@@ -6,22 +6,22 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const testimonials = [
   {
-    name: "Sarah Chen",
+    name: "Spidor-Mon",
     role: "Founder, TechStart",
     content: "TrashAI built our entire MVP in 30 minutes. What would have taken weeks is now done instantly.",
-    avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=64&h=64&fit=crop&crop=face"
+    href: "https://images.unsplash.com/photo-1529335764857-3f1164d1cb24?q=80&w=2592&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   },
   {
-    name: "Marcus Rodriguez",
+    name: "DOOMs Day",
     role: "CTO, DevFlow",
     content: "The code quality is surprisingly good. It's like having a senior developer on demand.",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=64&h=64&fit=crop&crop=face"
+    href: "https://images.unsplash.com/photo-1620336655055-088d06e36bf0?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   },
   {
-    name: "Emily Watson",
+    name: "HULK",
     role: "Product Manager, InnovateLab",
     content: "From idea to deployment in minutes. This is the future of software development.",
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=64&h=64&fit=crop&crop=face"
+    href: "https://images.unsplash.com/photo-1606663889134-b1dedb5ed8b7?q=80&w=3072&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   }
 ];
 
@@ -258,7 +258,7 @@ export function HomePage() {
                 </p>
                 <div className="flex items-center gap-4">
                   <img
-                    src={testimonial.avatar}
+                    src={testimonial.href}
                     alt={testimonial.name}
                     className="w-12 h-12 rounded-full object-cover"
                   />
