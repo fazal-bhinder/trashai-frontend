@@ -64,7 +64,7 @@ export function Navbar() {
             <Github className="h-5 w-5" />
           </a>
           <a
-            href="https://x.com/bhinder__fazal"
+            href="https://x.com/damnfazal"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-gray-600 transition-colors"
