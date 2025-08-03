@@ -7,8 +7,8 @@ function AppLayout() {
   const location = useLocation();
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      {location.pathname !== "/builder" && <Navbar />}
+    <div className="min-h-screen bg-white ">
+      {location.pathname !== "/builder" && !location.pathname.startsWith("/builder") && <Navbar />}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/builder" element={<BuilderPage />} />

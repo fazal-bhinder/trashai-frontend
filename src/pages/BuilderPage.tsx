@@ -8,8 +8,8 @@ import { parseXml } from '../steps';
 import { FileItem, Step, StepType } from '../types'; 
 import { FileExplorer } from '../components/FileExplorer';
 import { useWebContainer } from '../hooks/useWebContainer';
- import { useCallback } from 'react';
-
+import { useCallback } from 'react';
+import { motion } from 'framer-motion';
 
 export function BuilderPage() {
 
@@ -183,30 +183,52 @@ export function BuilderPage() {
 
 
   return (
-    <div className="flex flex-col lg:flex-row h-screen overflow-auto">
-      <div className="w-full lg:w-64 bg-zinc-900 p-4 flex flex-col border border-sky-500/20 rounded-xl mb-4 lg:mb-0">
-        <StepsList
-          steps={steps}
-          currentStep={currentStep}
-          onStepClick={(step: Step) => {
-            setCurrentStep(step);
-          }}
-        />
-      </div>
-  
-      <div className="w-full lg:w-64 bg-zinc-900 p-4 flex flex-col border border-sky-500/20 rounded-xl mb-4 lg:mb-0">
-        <div className="space-y-4">
-          <div className="flex items-center gap-2 mb-4">
+    <div className="h-screen bg-gray-50 p-6 overflow-hidden">
+      <div className="grid grid-cols-12 gap-6 h-[calc(100vh-3rem)] max-w-7xl mx-auto min-h-0">
+        {/* Steps Panel */}
+        <motion.div 
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="col-span-12 lg:col-span-3 min-h-0"
+        >
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm h-full min-h-0">
+            <StepsList
+              steps={steps}
+              currentStep={currentStep}
+              onStepClick={(step: Step) => {
+                setCurrentStep(step);
+              }}
+            />
+          </div>
+        </motion.div>
+
+        {/* File Explorer Panel */}
+        <motion.div 
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="col-span-12 lg:col-span-3 min-h-0"
+        >
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm h-full min-h-0">
             <FileExplorer 
               files={files} 
               onFileSelect={setSelectedFile}
             />
           </div>
-        </div>
-      </div>
-  
-      <div className="flex-1 bg-sky-500/5 border border-sky-500/20 rounded-xl h-[60vh] lg:h-full overflow-auto">
-        <CodeEditor files={selectedFile ? [selectedFile] : []} webContainer={webcontainer} />
+        </motion.div>
+
+        {/* Code Editor Panel */}
+        <motion.div 
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="col-span-12 lg:col-span-6 min-h-0"
+        >
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm h-full min-h-0">
+            <CodeEditor files={selectedFile ? [selectedFile] : []} webContainer={webcontainer} />
+          </div>
+        </motion.div>
       </div>
     </div>
   );  
