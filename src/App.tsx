@@ -1,18 +1,20 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; 
 import { HomePage } from './pages/HomePage';
 import { BuilderPage } from './pages/BuilderPage';
 
 function App() {
+
   return (
-    <Router>
-      <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white ">
+      <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/builder" element={<BuilderPage />} />
         </Routes>
-      </div>
-    </Router>
+      </Router>  
+    </div>
   );
 }
+
 
 export default App;

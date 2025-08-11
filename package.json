@@ -11,9 +11,11 @@
   },
   "dependencies": {
     "@monaco-editor/react": "^4.7.0",
+    "@radix-ui/react-slot": "^1.2.3",
     "@webcontainer/api": "^1.6.1",
     "axios": "^1.8.4",
     "caniuse-lite": "^1.0.30001714",
+    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.18.1",
     "jspdf": "^3.0.1",
@@ -22,10 +24,12 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.22.3",
-    "tailwind-merge": "^3.3.1"
+    "tailwind-merge": "^3.3.1",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
+    "@types/node": "^24.2.1",
     "@types/react": "^18.3.5",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
